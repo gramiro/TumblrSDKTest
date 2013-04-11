@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28964749171634AB00B91CE2 /* TumbrlSDKTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 28964748171634AB00B91CE2 /* TumbrlSDKTest.m */; };
+		2896474D17163DA000B91CE2 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2896474C17163DA000B91CE2 /* RootViewController.m */; };
 		28E830D817162E33001E2747 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28E830D717162E33001E2747 /* UIKit.framework */; };
 		28E830DA17162E33001E2747 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28E830D917162E33001E2747 /* Foundation.framework */; };
 		28E830DC17162E33001E2747 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28E830DB17162E33001E2747 /* CoreGraphics.framework */; };
@@ -21,9 +23,14 @@
 		28E830F617162E33001E2747 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28E830F517162E33001E2747 /* Default-568h@2x.png */; };
 		28E830FA17162E33001E2747 /* TumblrSDK.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 28E830F817162E33001E2747 /* TumblrSDK.xcdatamodeld */; };
 		28E830FD17162E33001E2747 /* TumblrSDKIncrementalStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 28E830FC17162E33001E2747 /* TumblrSDKIncrementalStore.m */; };
+		ECCB22CFD2D64F1D9BD49220 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A3E31F9690485AB388D23D /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		28964747171634AB00B91CE2 /* TumbrlSDKTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TumbrlSDKTest.h; sourceTree = "<group>"; };
+		28964748171634AB00B91CE2 /* TumbrlSDKTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TumbrlSDKTest.m; sourceTree = "<group>"; };
+		2896474B17163DA000B91CE2 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		2896474C17163DA000B91CE2 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		28E830D317162E33001E2747 /* TumblrSDK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TumblrSDK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28E830D717162E33001E2747 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		28E830D917162E33001E2747 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -44,6 +51,8 @@
 		28E830F917162E33001E2747 /* TumblrSDK.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TumblrSDK.xcdatamodel; sourceTree = "<group>"; };
 		28E830FB17162E33001E2747 /* TumblrSDKIncrementalStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TumblrSDKIncrementalStore.h; path = Classes/TumblrSDKIncrementalStore.h; sourceTree = "<group>"; };
 		28E830FC17162E33001E2747 /* TumblrSDKIncrementalStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TumblrSDKIncrementalStore.m; path = Classes/TumblrSDKIncrementalStore.m; sourceTree = "<group>"; };
+		44A3E31F9690485AB388D23D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE15872B8A394854AA3677AB /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +64,7 @@
 				28E830DA17162E33001E2747 /* Foundation.framework in Frameworks */,
 				28E830DC17162E33001E2747 /* CoreGraphics.framework in Frameworks */,
 				28E830DE17162E33001E2747 /* CoreData.framework in Frameworks */,
+				ECCB22CFD2D64F1D9BD49220 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,6 +77,7 @@
 				28E830DF17162E33001E2747 /* TumblrSDK */,
 				28E830D617162E33001E2747 /* Frameworks */,
 				28E830D417162E33001E2747 /* Products */,
+				DE15872B8A394854AA3677AB /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -85,6 +96,7 @@
 				28E830D917162E33001E2747 /* Foundation.framework */,
 				28E830DB17162E33001E2747 /* CoreGraphics.framework */,
 				28E830DD17162E33001E2747 /* CoreData.framework */,
+				44A3E31F9690485AB388D23D /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -95,6 +107,8 @@
 				28E830E017162E33001E2747 /* Podfile */,
 				28E830EE17162E33001E2747 /* AppDelegate.h */,
 				28E830EF17162E33001E2747 /* AppDelegate.m */,
+				2896474B17163DA000B91CE2 /* RootViewController.h */,
+				2896474C17163DA000B91CE2 /* RootViewController.m */,
 				28E830E417162E33001E2747 /* Networking */,
 				28E830F717162E33001E2747 /* Models */,
 				28E830E217162E33001E2747 /* Supporting Files */,
@@ -123,6 +137,8 @@
 				28E830E617162E33001E2747 /* TumblrSDKAPIClient.m */,
 				28E830FB17162E33001E2747 /* TumblrSDKIncrementalStore.h */,
 				28E830FC17162E33001E2747 /* TumblrSDKIncrementalStore.m */,
+				28964747171634AB00B91CE2 /* TumbrlSDKTest.h */,
+				28964748171634AB00B91CE2 /* TumbrlSDKTest.m */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -145,6 +161,7 @@
 				28E830CF17162E33001E2747 /* Sources */,
 				28E830D017162E33001E2747 /* Frameworks */,
 				28E830D117162E33001E2747 /* Resources */,
+				9D865E4E5A2A4200B19EA01D /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -196,6 +213,23 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		9D865E4E5A2A4200B19EA01D /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		28E830CF17162E33001E2747 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -206,6 +240,8 @@
 				28E830F017162E33001E2747 /* AppDelegate.m in Sources */,
 				28E830FA17162E33001E2747 /* TumblrSDK.xcdatamodeld in Sources */,
 				28E830FD17162E33001E2747 /* TumblrSDKIncrementalStore.m in Sources */,
+				28964749171634AB00B91CE2 /* TumbrlSDKTest.m in Sources */,
+				2896474D17163DA000B91CE2 /* RootViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,7 +281,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -266,7 +302,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -275,6 +311,7 @@
 		};
 		28E8310117162E33001E2747 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DE15872B8A394854AA3677AB /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TumblrSDK/TumblrSDK-Prefix.pch";
@@ -286,6 +323,7 @@
 		};
 		28E8310217162E33001E2747 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DE15872B8A394854AA3677AB /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TumblrSDK/TumblrSDK-Prefix.pch";
@@ -314,6 +352,7 @@
 				28E8310217162E33001E2747 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
