@@ -7,12 +7,16 @@
 //
 
 #import "RootViewController.h"
+#import "TumbrlSDKTest.h"
+#import "AFImageRequestOperation.h"
+
 
 @interface RootViewController ()
 
 @end
 
 @implementation RootViewController
+@synthesize imageView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,13 +30,28 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    
+    imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 128, 128)];
+    [self.view addSubview:imageView];
+    self.imageView.backgroundColor = [UIColor whiteColor];
+    self.imageView.contentMode = UIViewContentModeCenter;
+	
+    //BLOG METHODS TESTING:
+    [[TumbrlSDKTest sharedClient] getBlogInfoWithBaseHostname:@"good.tumblr.com" AndWithDelegate:nil];
+    [[TumbrlSDKTest sharedClient] getBlogAvatarWithBaseHostname:@"david.tumblr.com" AndSize:@"128" AndWithDelegate:self];
+    [[TumbrlSDKTest sharedClient] getBlogInfoWithBaseHostname:@"good.tumblr.com" AndWithDelegate:nil];
+
+    
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)imageForImageViewWithImage:(UIImage *)image {
+    self.imageView.image = image;
 }
 
 @end

@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TumbrlSDKTest.h"
 
-@interface RootViewController : UIViewController
+@interface RootViewController : UIViewController <TumblrDelegate>
+
+@property (nonatomic, retain) UIImageView *imageView;
 
 @end
