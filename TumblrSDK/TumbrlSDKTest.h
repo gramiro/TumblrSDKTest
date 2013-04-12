@@ -21,12 +21,15 @@
 
 + (TumbrlSDKTest *)sharedClient;
 
-//NOTE: CHECK HERE FOR DOCUMENTATION (requests parameters, etc): http://www.tumblr.com/docs/en/api/v2
+//NOTE: READ THIS TUMBLR API WEB DOCUMENTATION (requests parameters, etc): http://www.tumblr.com/docs/en/api/v2
 
 //BLOG METHODS
 //Base Hostname: The standard or custom blog hostname
 -(void)getBlogInfoWithBaseHostname:(NSString *)baseHostname AndWithDelegate:(NSObject <TumblrDelegate> *)delegate;
 -(void)getBlogAvatarWithBaseHostname:(NSString *)baseHostname AndSize:(NSString *)avatarSize AndWithDelegate:(NSObject <TumblrDelegate> *)delegate;
+-(void)getBlogLikesWithBaseHostname:(NSString *)baseHostname AndLimit:(NSString *)limit AndOffset:(NSString *)offset AndWithDelegate:(NSObject <TumblrDelegate> *)delegate;
+-(void)getBlogFollowersWithBaseHostname:(NSString *)baseHostname AndLimit:(NSString *)limit AndOffset:(NSString *)offset AndWithDelegate:(NSObject <TumblrDelegate> *)delegate;
+
 
 
 @end
