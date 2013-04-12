@@ -162,5 +162,389 @@ static NSString * const kTokenSecretString = @"";
     
 }
 
+-(void)postCreateANewBlogTEXTPostWithBaseHostname:(NSString *)baseHostname AndBody:(NSString *)body AndParameters:(NSDictionary *)params AndWithDelegate:(NSObject<TumblrDelegate> *)delegate {
+    
+    
+    [self setDefaultHeader:@"Accept" value:@"application/x-www-form-urlencoded"];
+    
+    [self authorizeUsingOAuthWithRequestTokenPath:@"/oauth/request_token" userAuthorizationPath:@"/oauth/authorize" callbackURL:[NSURL URLWithString:@"tumblrtest://success"] accessTokenPath:@"/oauth/access_token" accessMethod:@"POST" success:^(AFOAuth1Token *accessToken) {
+    
+        NSLog(@"TOKEN key: %@", accessToken.key);
+        NSLog(@"TOKEN secret: %@", accessToken.secret);
+        
+        NSMutableDictionary *mutableParameters = [NSMutableDictionary dictionary];
+        
+        if (params)
+            mutableParameters = [NSMutableDictionary dictionaryWithDictionary:params];
+        
+        [mutableParameters setValue:kConsumerKeyString forKey:@"api_key"];
+        
+        [mutableParameters setValue:@"text" forKey:@"type"];
+        [mutableParameters setValue:body forKey:@"body"];
+        
+        NSDictionary *parameters = [NSDictionary dictionaryWithDictionary:mutableParameters];
+        
+        NSString *path = [NSString stringWithFormat:@"http://api.tumblr.com/v2/blog/%@/post", baseHostname]; 
+        
+        [self setDefaultHeader:@"Accept" value:@"application/json"];
+        
+        [self postPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            NSLog(@"BLOG POST REQUEST");
+            NSLog(@"Response object: %@", responseObject);
+            //Complete with delegate call
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"GET ERROR: %@", error);
+        }];
+        
+        
+    } failure:^(NSError *error) {
+        NSLog(@"AUTHORIZATION ERROR: %@", error);
+    }];
+    
+}
+
+//MULTIPLE-Photo-Upload is not implemented yet.
+
+-(void)postCreateANewBlogPHOTOPostWithBaseHostname:(NSString *)baseHostname AndSource:(NSString *)source OrImage:(UIImage *)image AndParameters:(NSDictionary *)params AndWithDelegate:(NSObject<TumblrDelegate> *)delegate {
+    
+    
+    [self setDefaultHeader:@"Accept" value:@"application/x-www-form-urlencoded"];
+    
+    [self authorizeUsingOAuthWithRequestTokenPath:@"/oauth/request_token" userAuthorizationPath:@"/oauth/authorize" callbackURL:[NSURL URLWithString:@"tumblrtest://success"] accessTokenPath:@"/oauth/access_token" accessMethod:@"POST" success:^(AFOAuth1Token *accessToken) {
+        
+        NSLog(@"TOKEN key: %@", accessToken.key);
+        NSLog(@"TOKEN secret: %@", accessToken.secret);
+        
+        NSMutableDictionary *mutableParameters = [NSMutableDictionary dictionary];
+        
+        if (params)
+            mutableParameters = [NSMutableDictionary dictionaryWithDictionary:params];
+        
+        [mutableParameters setValue:kConsumerKeyString forKey:@"api_key"];
+        
+        [mutableParameters setValue:@"photo" forKey:@"type"];
+
+        if (source)
+            [mutableParameters setValue:source forKey:@"source"];
+        
+        NSDictionary *parameters = [NSDictionary dictionaryWithDictionary:mutableParameters];
+        
+        NSString *path = [NSString stringWithFormat:@"http://api.tumblr.com/v2/blog/%@/post", baseHostname];
+        
+        [self setDefaultHeader:@"Accept" value:@"application/json"];
+        
+        if (image && !source)
+        {
+        NSData* uploadFile = nil;
+        uploadFile = (NSData*)UIImageJPEGRepresentation(image,70);
+          
+            
+        NSMutableURLRequest *apiRequest = [self multipartFormRequestWithMethod:@"POST" path:path parameters:parameters constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
+            if (uploadFile) {
+                [formData appendPartWithFileData:uploadFile name:@"data" fileName:@"text.jpg" mimeType:@"image/jpeg"];
+                
+            }
+        }];
+        
+        AFJSONRequestOperation* operation = [[AFJSONRequestOperation alloc] initWithRequest: apiRequest];
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            //success!
+            NSLog(@"SUCCESS! :D, %@", responseObject);
+            // completionBlock(responseObject);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"FAILURE :(");
+            //failure :(
+            // completionBlock([NSDictionary dictionaryWithObject:[error localizedDescription] forKey:@"error"]);
+        }];
+        [operation start];
+        
+        }
+        else
+        {
+        [self postPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            NSLog(@"BLOG POST REQUEST");
+            NSLog(@"Response object: %@", responseObject);
+            //Complete with delegate call
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"GET ERROR: %@", error);
+        }];
+        
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"AUTHORIZATION ERROR: %@", error);
+    }];
+    
+}
+
+
+
+
+-(void)postCreateANewBlogQUOTEPostWithBaseHostname:(NSString *)baseHostname AndQuote:(NSString *)quote AndParameters:(NSDictionary *)params AndWithDelegate:(NSObject<TumblrDelegate> *)delegate {
+    
+    
+    [self setDefaultHeader:@"Accept" value:@"application/x-www-form-urlencoded"];
+    
+    [self authorizeUsingOAuthWithRequestTokenPath:@"/oauth/request_token" userAuthorizationPath:@"/oauth/authorize" callbackURL:[NSURL URLWithString:@"tumblrtest://success"] accessTokenPath:@"/oauth/access_token" accessMethod:@"POST" success:^(AFOAuth1Token *accessToken) {
+        
+        NSLog(@"TOKEN key: %@", accessToken.key);
+        NSLog(@"TOKEN secret: %@", accessToken.secret);
+        
+        NSMutableDictionary *mutableParameters = [NSMutableDictionary dictionary];
+        
+        if (params)
+            mutableParameters = [NSMutableDictionary dictionaryWithDictionary:params];
+        
+        [mutableParameters setValue:kConsumerKeyString forKey:@"api_key"];
+        
+        [mutableParameters setValue:@"quote" forKey:@"type"];
+        [mutableParameters setValue:quote forKey:@"quote"];
+        
+        NSDictionary *parameters = [NSDictionary dictionaryWithDictionary:mutableParameters];
+        
+        NSString *path = [NSString stringWithFormat:@"http://api.tumblr.com/v2/blog/%@/post", baseHostname];
+        
+        [self setDefaultHeader:@"Accept" value:@"application/json"];
+        
+        [self postPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            NSLog(@"BLOG POST REQUEST");
+            NSLog(@"Response object: %@", responseObject);
+            //Complete with delegate call
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"GET ERROR: %@", error);
+        }];
+        
+        
+    } failure:^(NSError *error) {
+        NSLog(@"AUTHORIZATION ERROR: %@", error);
+    }];
+    
+}
+
+
+-(void)postCreateANewBlogLINKPostWithBaseHostname:(NSString *)baseHostname AndLink:(NSString *)link AndParameters:(NSDictionary *)params AndWithDelegate:(NSObject<TumblrDelegate> *)delegate {
+    
+    
+    [self setDefaultHeader:@"Accept" value:@"application/x-www-form-urlencoded"];
+    
+    [self authorizeUsingOAuthWithRequestTokenPath:@"/oauth/request_token" userAuthorizationPath:@"/oauth/authorize" callbackURL:[NSURL URLWithString:@"tumblrtest://success"] accessTokenPath:@"/oauth/access_token" accessMethod:@"POST" success:^(AFOAuth1Token *accessToken) {
+        
+        NSLog(@"TOKEN key: %@", accessToken.key);
+        NSLog(@"TOKEN secret: %@", accessToken.secret);
+        
+        NSMutableDictionary *mutableParameters = [NSMutableDictionary dictionary];
+        
+        if (params)
+            mutableParameters = [NSMutableDictionary dictionaryWithDictionary:params];
+        
+        [mutableParameters setValue:kConsumerKeyString forKey:@"api_key"];
+        
+        [mutableParameters setValue:@"link" forKey:@"type"];
+        [mutableParameters setValue:link forKey:@"url"];
+        
+        NSDictionary *parameters = [NSDictionary dictionaryWithDictionary:mutableParameters];
+        
+        NSString *path = [NSString stringWithFormat:@"http://api.tumblr.com/v2/blog/%@/post", baseHostname];
+        
+        [self setDefaultHeader:@"Accept" value:@"application/json"];
+        
+        [self postPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            NSLog(@"BLOG POST REQUEST");
+            NSLog(@"Response object: %@", responseObject);
+            //Complete with delegate call
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"GET ERROR: %@", error);
+        }];
+        
+        
+    } failure:^(NSError *error) {
+        NSLog(@"AUTHORIZATION ERROR: %@", error);
+    }];
+    
+}
+
+-(void)postCreateANewBlogCHATPostWithBaseHostname:(NSString *)baseHostname AndConversation:(NSString *)conversation AndParameters:(NSDictionary *)params AndWithDelegate:(NSObject<TumblrDelegate> *)delegate {
+    
+    
+    [self setDefaultHeader:@"Accept" value:@"application/x-www-form-urlencoded"];
+    
+    [self authorizeUsingOAuthWithRequestTokenPath:@"/oauth/request_token" userAuthorizationPath:@"/oauth/authorize" callbackURL:[NSURL URLWithString:@"tumblrtest://success"] accessTokenPath:@"/oauth/access_token" accessMethod:@"POST" success:^(AFOAuth1Token *accessToken) {
+        
+        NSLog(@"TOKEN key: %@", accessToken.key);
+        NSLog(@"TOKEN secret: %@", accessToken.secret);
+        
+        NSMutableDictionary *mutableParameters = [NSMutableDictionary dictionary];
+        
+        if (params)
+            mutableParameters = [NSMutableDictionary dictionaryWithDictionary:params];
+        
+        [mutableParameters setValue:kConsumerKeyString forKey:@"api_key"];
+        
+        [mutableParameters setValue:@"chat" forKey:@"type"];
+        [mutableParameters setValue:conversation forKey:@"conversation"];
+        
+        NSDictionary *parameters = [NSDictionary dictionaryWithDictionary:mutableParameters];
+        
+        NSString *path = [NSString stringWithFormat:@"http://api.tumblr.com/v2/blog/%@/post", baseHostname];
+        
+        [self setDefaultHeader:@"Accept" value:@"application/json"];
+        
+        [self postPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            NSLog(@"BLOG POST REQUEST");
+            NSLog(@"Response object: %@", responseObject);
+            //Complete with delegate call
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"GET ERROR: %@", error);
+        }];
+        
+        
+    } failure:^(NSError *error) {
+        NSLog(@"AUTHORIZATION ERROR: %@", error);
+    }];
+    
+}
+
+-(void)postEditPostWithBaseHostname:(NSString *)baseHostname AndPostId:(NSString *)postId AndType:(NSString *)type AndParameters:(NSDictionary *)params AndWithDelegate:(NSObject<TumblrDelegate> *)delegate {
+    
+    
+    [self setDefaultHeader:@"Accept" value:@"application/x-www-form-urlencoded"];
+    
+    [self authorizeUsingOAuthWithRequestTokenPath:@"/oauth/request_token" userAuthorizationPath:@"/oauth/authorize" callbackURL:[NSURL URLWithString:@"tumblrtest://success"] accessTokenPath:@"/oauth/access_token" accessMethod:@"POST" success:^(AFOAuth1Token *accessToken) {
+        
+        NSLog(@"TOKEN key: %@", accessToken.key);
+        NSLog(@"TOKEN secret: %@", accessToken.secret);
+        
+        NSMutableDictionary *mutableParameters = [NSMutableDictionary dictionary];
+        
+        if (params)
+            mutableParameters = [NSMutableDictionary dictionaryWithDictionary:params];
+        
+        [mutableParameters setValue:kConsumerKeyString forKey:@"api_key"];
+        
+        [mutableParameters setValue:type forKey:@"type"];
+        
+        [mutableParameters setValue:postId forKey:@"id"];
+
+        NSDictionary *parameters = [NSDictionary dictionaryWithDictionary:mutableParameters];
+        
+        NSString *path = [NSString stringWithFormat:@"http://api.tumblr.com/v2/blog/%@/post/edit", baseHostname];
+        
+        [self setDefaultHeader:@"Accept" value:@"application/json"];
+        
+        [self postPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            NSLog(@"BLOG POST REQUEST");
+            NSLog(@"Response object: %@", responseObject);
+            //Complete with delegate call
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"GET ERROR: %@", error);
+        }];
+        
+        
+    } failure:^(NSError *error) {
+        NSLog(@"AUTHORIZATION ERROR: %@", error);
+    }];
+    
+}
+
+
+-(void)postReblogPostWithBaseHostname:(NSString *)baseHostname AndPostId:(NSString *)postId AndReblogKey:(NSString *)reblog_key AndType:(NSString *)type AndParameters:(NSDictionary *)params AndWithDelegate:(NSObject<TumblrDelegate> *)delegate {
+    
+    
+    [self setDefaultHeader:@"Accept" value:@"application/x-www-form-urlencoded"];
+    
+    [self authorizeUsingOAuthWithRequestTokenPath:@"/oauth/request_token" userAuthorizationPath:@"/oauth/authorize" callbackURL:[NSURL URLWithString:@"tumblrtest://success"] accessTokenPath:@"/oauth/access_token" accessMethod:@"POST" success:^(AFOAuth1Token *accessToken) {
+        
+        NSLog(@"TOKEN key: %@", accessToken.key);
+        NSLog(@"TOKEN secret: %@", accessToken.secret);
+        
+        NSMutableDictionary *mutableParameters = [NSMutableDictionary dictionary];
+        
+        if (params)
+            mutableParameters = [NSMutableDictionary dictionaryWithDictionary:params];
+        
+        [mutableParameters setValue:kConsumerKeyString forKey:@"api_key"];
+        
+        [mutableParameters setValue:type forKey:@"type"];
+        
+        [mutableParameters setValue:postId forKey:@"id"];
+        
+        [mutableParameters setValue:reblog_key forKey:@"reblog_key"];
+
+        NSDictionary *parameters = [NSDictionary dictionaryWithDictionary:mutableParameters];
+        
+        NSString *path = [NSString stringWithFormat:@"http://api.tumblr.com/v2/blog/%@/post/reblog", baseHostname];
+        
+        [self setDefaultHeader:@"Accept" value:@"application/json"];
+        
+        [self postPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            NSLog(@"BLOG POST REQUEST");
+            NSLog(@"Response object: %@", responseObject);
+            //Complete with delegate call
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"GET ERROR: %@", error);
+        }];
+        
+        
+    } failure:^(NSError *error) {
+        NSLog(@"AUTHORIZATION ERROR: %@", error);
+    }];
+    
+}
+
+-(void)postDeletePostWithBaseHostname:(NSString *)baseHostname AndPostId:(NSString *)postId AndWithDelegate:(NSObject<TumblrDelegate> *)delegate {
+    
+    
+    [self setDefaultHeader:@"Accept" value:@"application/x-www-form-urlencoded"];
+    
+    [self authorizeUsingOAuthWithRequestTokenPath:@"/oauth/request_token" userAuthorizationPath:@"/oauth/authorize" callbackURL:[NSURL URLWithString:@"tumblrtest://success"] accessTokenPath:@"/oauth/access_token" accessMethod:@"POST" success:^(AFOAuth1Token *accessToken) {
+        
+        NSLog(@"TOKEN key: %@", accessToken.key);
+        NSLog(@"TOKEN secret: %@", accessToken.secret);
+        
+        NSMutableDictionary *mutableParameters = [NSMutableDictionary dictionary];
+        
+        
+        [mutableParameters setValue:kConsumerKeyString forKey:@"api_key"];
+        
+        
+        [mutableParameters setValue:postId forKey:@"id"];
+        
+        
+        NSDictionary *parameters = [NSDictionary dictionaryWithDictionary:mutableParameters];
+        
+        NSString *path = [NSString stringWithFormat:@"http://api.tumblr.com/v2/blog/%@/post/delete", baseHostname];
+        
+        [self setDefaultHeader:@"Accept" value:@"application/json"];
+        
+        [self postPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            NSLog(@"BLOG POST REQUEST");
+            NSLog(@"Response object: %@", responseObject);
+            //Complete with delegate call
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"GET ERROR: %@", error);
+        }];
+        
+        
+    } failure:^(NSError *error) {
+        NSLog(@"AUTHORIZATION ERROR: %@", error);
+    }];
+    
+}
+
 
 @end
