@@ -40,7 +40,7 @@
     //[[TumbrlSDKTest sharedClient] getBlogInfoWithBaseHostname:@"good.tumblr.com" AndWithDelegate:nil];
     //[[TumbrlSDKTest sharedClient] getBlogAvatarWithBaseHostname:@"david.tumblr.com" AndSize:@"128" AndWithDelegate:self];
     //[[TumbrlSDKTest sharedClient] getBlogLikesWithBaseHostname:@"good.tumblr.com" AndLimit:@"5" AndOffset:@"3" AndWithDelegate:nil];
-    [[TumbrlSDKTest sharedClient] getBlogFollowersWithBaseHostname:@"david.tumblr.com" AndLimit:nil AndOffset:nil AndWithDelegate:nil];
+    [[TumbrlSDKTest sharedClient] getBlogFollowersWithBaseHostname:@"marco85msg.tumblr.com" AndLimit:nil AndOffset:nil AndWithDelegate:nil];
     
     
 }

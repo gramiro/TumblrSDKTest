@@ -126,10 +126,11 @@ static NSString * const kTokenSecretString = @"";
     
     [self authorizeUsingOAuthWithRequestTokenPath:@"/oauth/request_token" userAuthorizationPath:@"/oauth/authorize" callbackURL:[NSURL URLWithString:@"tumblrtest://success"] accessTokenPath:@"/oauth/access_token" accessMethod:@"POST" success:^(AFOAuth1Token *accessToken) {
         
-        NSLog(@"TOKEN: %@", accessToken);
+        NSLog(@"TOKEN key: %@", accessToken.key);
+        NSLog(@"TOKEN secret: %@", accessToken.secret);
         
         NSMutableDictionary *mutableParameters = [NSMutableDictionary dictionary];
-        //[mutableParameters setValue:kConsumerKeyString forKey:@"api_key"];
+        [mutableParameters setValue:kConsumerKeyString forKey:@"api_key"];
         
         if (limit) {
             [mutableParameters setValue:limit forKey:@"limit"];
@@ -139,8 +140,6 @@ static NSString * const kTokenSecretString = @"";
         }
         
         NSDictionary *parameters = [NSDictionary dictionaryWithDictionary:mutableParameters];
-        
-        parameters = nil;
         
         NSString *path = [NSString stringWithFormat:@"http://api.tumblr.com/v2/blog/%@/followers", baseHostname];
         
@@ -153,12 +152,12 @@ static NSString * const kTokenSecretString = @"";
             //Complete with delegate call
                 
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"%@", error);
+                NSLog(@"GET ERROR: %@", error);
         }];
 
         
     } failure:^(NSError *error) {
-        NSLog(@"Error: %@", error);
+        NSLog(@"AUTHORIZATION ERROR: %@", error);
     }];
     
 }
