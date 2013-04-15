@@ -66,7 +66,15 @@
     
    //[[TumbrlSDKTest sharedClient] postDeletePostWithBaseHostname:@"zarph.tumblr.com" AndPostId:@"47817133365" AndWithDelegate:nil];
     
-   
+   /* NSString* resourcePath = [[NSBundle mainBundle] resourcePath];
+    resourcePath = [resourcePath stringByAppendingString:@"/Moderato.mp3"];
+    NSLog(@"Path to play: %@", resourcePath);
+    
+    NSData *data = [NSData dataWithContentsOfFile:resourcePath];
+    
+
+    
+    [[TumbrlSDKTest sharedClient] postCreateANewBlogAUDIOPostWithBaseHostname:@"zarph.tumblr.com" AndSource:nil OrAudioData:data AndParameters:nil AndWithDelegate:nil];*/
 }
 
 - (void)didReceiveMemoryWarning

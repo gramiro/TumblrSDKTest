@@ -546,5 +546,111 @@ static NSString * const kTokenSecretString = @"";
     
 }
 
+-(void)getBlogPublishedPostsWithBaseHostname:(NSString *)baseHostname AndPostType:(NSString *)type AndParameters:(NSDictionary *)params AndWithDelegate:(NSObject<TumblrDelegate> *)delegate {
+    
+    NSMutableDictionary *mutableParameters = [NSMutableDictionary dictionaryWithDictionary:params];
+    [mutableParameters setValue:kConsumerKeyString forKey:@"api_key"];
+    
+    NSDictionary *parameters = [NSDictionary dictionaryWithDictionary:mutableParameters];
+    
+    NSString *path;
+    
+    if (type) {
+        path = [NSString stringWithFormat:@"http://api.tumblr.com/v2/blog/%@/posts/%@", baseHostname, type];
+        }
+    else {
+       path = [NSString stringWithFormat:@"http://api.tumblr.com/v2/blog/%@/posts", baseHostname];
+        }
+    
+    
+    [self getPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"BLOG PUBLISHED POSTS REQUEST");
+        
+        NSLog(@"Response object: %@", responseObject);
+        
+        //Complete with delegate call
+        
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"%@", error);
+            
+            }];
+    
+}
+
+//This method only accepts MP3 files, please convert to MP3 type the file you want to upload.
+-(void)postCreateANewBlogAUDIOPostWithBaseHostname:(NSString *)baseHostname AndSource:(NSString *)external_url OrAudioData:(NSData *)audioData AndParameters:(NSDictionary *)params AndWithDelegate:(NSObject<TumblrDelegate> *)delegate {
+    
+    
+    [self setDefaultHeader:@"Accept" value:@"application/x-www-form-urlencoded"];
+    
+    [self authorizeUsingOAuthWithRequestTokenPath:@"/oauth/request_token" userAuthorizationPath:@"/oauth/authorize" callbackURL:[NSURL URLWithString:@"tumblrtest://success"] accessTokenPath:@"/oauth/access_token" accessMethod:@"POST" success:^(AFOAuth1Token *accessToken) {
+        
+        NSLog(@"TOKEN key: %@", accessToken.key);
+        NSLog(@"TOKEN secret: %@", accessToken.secret);
+        
+        NSMutableDictionary *mutableParameters = [NSMutableDictionary dictionary];
+        
+        if (params)
+            mutableParameters = [NSMutableDictionary dictionaryWithDictionary:params];
+        
+        [mutableParameters setValue:kConsumerKeyString forKey:@"api_key"];
+        
+        [mutableParameters setValue:@"audio" forKey:@"type"];
+        
+        if (external_url)
+            [mutableParameters setValue:external_url forKey:@"external_url"];
+        
+        NSDictionary *parameters = [NSDictionary dictionaryWithDictionary:mutableParameters];
+        
+        NSString *path = [NSString stringWithFormat:@"http://api.tumblr.com/v2/blog/%@/post", baseHostname];
+        
+        [self setDefaultHeader:@"Accept" value:@"application/json"];
+        
+        if (audioData && !external_url)
+        {
+            NSData* uploadFile = nil;
+            uploadFile = audioData;
+            
+            
+            NSMutableURLRequest *apiRequest = [self multipartFormRequestWithMethod:@"POST" path:path parameters:parameters constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
+                if (uploadFile) {
+                    [formData appendPartWithFileData:uploadFile name:@"data" fileName:@"data" mimeType:@"audio/mpeg"];
+                    
+                }
+            }];
+            
+            AFJSONRequestOperation* operation = [[AFJSONRequestOperation alloc] initWithRequest: apiRequest];
+            [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                //success!
+                NSLog(@"SUCCESS! :D, %@", responseObject);
+                // completionBlock(responseObject);
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"FAILURE :( 123 %@", error);
+                //failure :(
+                // completionBlock([NSDictionary dictionaryWithObject:[error localizedDescription] forKey:@"error"]);
+            }];
+            [operation start];
+            
+        }
+        else
+        {
+            [self postPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                
+                NSLog(@"BLOG POST REQUEST");
+                NSLog(@"Response object: %@", responseObject);
+                //Complete with delegate call
+                
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"GET ERROR: %@", error);
+            }];
+            
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"AUTHORIZATION ERROR: %@", error);
+    }];
+    
+}
+
 
 @end
